@@ -29,6 +29,9 @@ import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import androidx.fragment.app.Fragment;
 
+
+
+
 public class C72RfidScannerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
     private static final String UHF_READER_POWER_ON_ERROR = "UHF_READER_POWER_ON_ERROR";

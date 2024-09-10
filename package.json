@@ -29,7 +29,7 @@
   "engines": {
     "node": ">=18"
   },
-  "description": "ufh reader update",
+  "description": "C72 Chainway UHF Reader By Adnan React Native",
   "main": "index.ts",
   "keywords": [
     "rfid",

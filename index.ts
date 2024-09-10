@@ -8,10 +8,9 @@ type initializeReader = () => void;
 type deInitializeReader = () => void;
 type readSingleTag = () => Promise<any>;
 type readPower = () => Promise<any>;
-type playSoundTy = (number:1|2) => ()=>void
-type releaseSoundPoolTy = () => ()=>void
+type playSoundTy = (number:1|2) => void
+type releaseSoundPoolTy = () => void
 type initializeUHFType = () => Promise<any>;
-
 type changePower = (powerValue: any) => Promise<any>;
 type AddListener = (cb: (args: any[]) => void) => void;
 type clearTags = () => void;
@@ -49,6 +48,10 @@ const powerListener: AddListener = (listener) =>
 const tagListener: AddListener = (listener) =>
   eventEmitter.addListener("UHF_TAG", listener);
 
+const buttonPressListener: AddListener = (listener) =>
+  eventEmitter.addListener("UHF_BUTTON", listener);
+
+
 const clearTags: clearTags = () =>
   C72RfidScanner.clearAllTags();
 
@@ -57,6 +60,7 @@ const initializeUHF:initializeUHFType = () =>  C72RfidScanner.initializeUHF();
 const deinitializeUHF = () =>  C72RfidScanner.deinitializeUHF();
 
 export default {
+  buttonPressListener,
   releaseSoundPool,
   playSoundFunc,
   initializeUHF,

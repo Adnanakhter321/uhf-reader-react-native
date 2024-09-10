@@ -1,148 +1,3 @@
-// package com.uhfrfidlibrary.uhf;
-
-// import android.util.Log;
-
-// import androidx.annotation.Nullable;
-// // import com.uhfrfidlibrary.uhf.activity.UHFMainActivity;
-
-// import com.facebook.react.bridge.LifecycleEventListener;
-// import com.facebook.react.bridge.ReactApplicationContext;
-// import com.facebook.react.bridge.ReactContextBaseJavaModule;
-// import com.facebook.react.bridge.ReactMethod;
-// import com.facebook.react.bridge.Callback;
-// import com.facebook.react.bridge.Promise;
-
-// import com.facebook.react.bridge.WritableArray;
-// import com.facebook.react.bridge.WritableNativeArray;
-// import com.facebook.react.modules.core.DeviceEventManagerModule;
-// // import com.rscja.deviceapi.RFIDWithUHF;
-// // import com.rscja.deviceapi.RFIDWithUHF.BankEnum;
-// import com.rscja.deviceapi.RFIDWithUHFUART;
-// import com.rscja.deviceapi.entity.UHFTAGInfo;
-// import com.rscja.deviceapi.interfaces.IUHF;
-
-// import java.util.ArrayList;
-// import java.util.List;
-
-// public class C72RfidScannerModule extends ReactContextBaseJavaModule {
-//     // private UHFMainActivity mContext;
-//     public RFIDWithUHFUART mReader;
-//     // public C72RfidScannerModule(ReactApplicationContext reactContext) {
-//     //     super(reactContext);
-//     //     this.mContext = (UHFMainActivity) reactContext.getCurrentActivity();
-//     // }
-//     private final ReactApplicationContext reactContext;
-
-//     public C72RfidScannerModule(ReactApplicationContext reactContext) {
-//         super(reactContext);
-//         this.reactContext = reactContext;
-//         // this.reactContext.addLifecycleEventListener(this);
-//     }
-
-//     @Override
-//     public String getName() {
-//         return "C72RfidScannerModule";
-//     }
-
-//         private int count = 0;
-
-//         private void sendEvent(String eventName, @Nullable WritableArray array) {
-//             getReactApplicationContext()
-//                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-//                 .emit(eventName, array);
-//         }
-
-//         private void sendEvent(String eventName, @Nullable String status) {
-//             getReactApplicationContext()
-//                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-//                 .emit(eventName, status);
-//         }
-//     @ReactMethod
-//     private void initializeReader() {
-//         Log.d("UHF Reader", "Initializing Reader");
-//         new UhfReaderPower().start();
-//     }
-//     @ReactMethod
-//     public void setPower(int powerLevel, Promise promise) {
-//         try {
-//             boolean result = mReader.setPower(powerLevel);
-//             if (result) {
-//                 promise.resolve("Power set to: " + powerLevel);
-//             } else {
-//                 promise.reject("ERROR", "Failed to set power");
-//             }
-//         } catch (Exception e) {
-//             promise.reject("ERROR", e);
-//         }
-//     }
-
-//     @ReactMethod
-//     public void getPower(Promise promise) {
-//         try {
-//             int powerLevel = mReader.getPower();
-//             if (powerLevel != -1) {
-//                 promise.resolve(powerLevel);
-//             } else {
-//                 promise.reject("ERROR", "Failed to get power level");
-//             }
-//         } catch (Exception e) {
-//             promise.reject("ERROR", e);
-//         }
-//     }
-//     }
-//     class UhfReaderPower extends Thread {
-//         Boolean powerOn;
-        
-//         public UhfReaderPower() {
-//             this.powerOn = true;
-//         }
-
-//         public UhfReaderPower(Boolean powerOn) {
-//             this.powerOn = powerOn;
-//         }
-        
-//         public void powerOn() {
-//             if(mReader == null || !mReaderStatus) {
-//                 try {
-//                     mReader = RFIDWithUHFUART.getInstance();
-//                     try {
-//                         mReaderStatus = mReader.init();
-//                         //mReader.setEPCTIDMode(true);
-//                         mReader.setEPCAndTIDMode();
-//                         sendEvent("UHF_POWER", "success: power on");
-//                     } catch (Exception ex) {
-//                         sendEvent("UHF_POWER", "failed: init error");
-//                     }
-//                 } catch (Exception ex) {
-//                     sendEvent("UHF_POWER", "failed: power on error");
-//                 }
-//             }
-//         }
-
-//         public void powerOff() {
-//             if(mReader != null) {
-//                 try {
-//                     mReader.free();
-//                     mReader = null;
-//                     sendEvent("UHF_POWER", "success: power off");
-
-//                 } catch (Exception ex) {
-//                     sendEvent("UHF_POWER", "failed: " + ex.getMessage());
-//                 }
-//             }
-//         }
-
-//         public void run() {
-//             if(powerOn) {
-//                 powerOn();
-//             } else {
-//                 powerOff();
-//             }
-//         }
-
-//     }
-
-    
 package com.uhfrfidlibrary.uhf;
 import android.util.Log;
 import androidx.annotation.Nullable;
@@ -155,12 +10,9 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-// import com.rscja.deviceapi.RFIDWithUHF;
-// import com.rscja.deviceapi.RFIDWithUHF.BankEnum;
 import com.rscja.deviceapi.RFIDWithUHFUART;
 import com.rscja.deviceapi.entity.UHFTAGInfo;
 import com.rscja.deviceapi.interfaces.IUHF;
-// import com.example.rfid.uhf.UHFManager;
 import com.rscja.deviceapi.RFIDWithUHFUART;
 import com.rscja.deviceapi.exception.ConfigurationException;
 import java.util.ArrayList;
@@ -170,7 +22,12 @@ import android.media.SoundPool;
 import java.util.HashMap;
 import android.content.Context;
 import com.uhfrfidlibrary.uhf.R;
-
+import android.view.KeyEvent;
+import androidx.fragment.app.Fragment;
+import android.app.Activity;
+import android.os.Bundle;
+import com.facebook.react.ReactActivity;
+import androidx.fragment.app.Fragment;
 
 public class C72RfidScannerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
@@ -181,14 +38,12 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
     private static final String UHF_READER_WRITE_ERROR = "UHF_READER_WRITE_ERROR";
     private static final String UHF_READER_OTHER_ERROR = "UHF_READER_OTHER_ERROR";
     
-    //private RFIDWithUHF mReader = null;
     public RFIDWithUHFUART mReader;
 
     private Boolean mReaderStatus = false;
     private List<String> scannedTags = new ArrayList<String>();
     private Boolean uhfInventoryStatus = false;
     private String deviceName = "";
-
     private SoundPool soundPool;
     private AudioManager am;
     private HashMap<Integer, Integer> soundMap = new HashMap<>();
@@ -203,14 +58,15 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
         initSound(reactContext);
     }
 
-    @Override
-    public String getName() {
-        return "C72RfidScanner";
-    }
 
     // =========================
     // Method to initialize UHF from React Native
 
+    @Override
+    public String getName() {
+        return "C72RfidScanner";
+    }
+    
     @ReactMethod
     public void playSound(int id) {
         float audioMaxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -296,7 +152,7 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
     }
 
 
-    // ===========================
+    // =========================== END
 
     @Override
     public void onHostDestroy() {
@@ -326,6 +182,7 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(eventName, status);
     }
+    
 
     @ReactMethod
     private void initializeReader() {
@@ -355,6 +212,7 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
             if(!tag.getEPC().isEmpty()) {
                 String[] tagData = {tag.getEPC(), tag.getRssi()};
                 promise.resolve(convertArrayToWritableArray(tagData));
+               
             } else {
                 promise.reject(UHF_READER_READ_ERROR, "READ FAILED");
             }

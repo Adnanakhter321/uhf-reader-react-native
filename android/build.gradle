@@ -80,7 +80,8 @@ dependencies {
     // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
-    implementation fileTree(dir: 'libs', include: ['*.*'])
+    compileOnly files('libs/DeviceAPI_ver20231208_release.aar')
+    implementation fileTree(dir: 'libs', include: ['*.jar*'])
     implementation files('libs/jxl.jar')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'

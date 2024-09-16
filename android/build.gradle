@@ -15,6 +15,8 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: "maven-publish"
+apply plugin: "com.facebook.react"
+
 
 if (isNewArchitectureEnabled()) {
     apply plugin: "com.facebook.react"

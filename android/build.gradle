@@ -74,11 +74,11 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:+"
-    implementation fileTree(dir: 'libs', include: ['*.*'])
-    implementation files('libs/jxl.jar')
-    implementation files('libs2/DeviceAPI_ver20231208_release.aar')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    // implementation fileTree(dir: 'libs', include: ['*.*'])
+    // implementation files('libs/jxl.jar')
+    // implementation files('libs2/DeviceAPI_ver20231208_release.aar')
+    // implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // implementation 'androidx.appcompat:appcompat:1.1.0'
+    // implementation 'androidx.cardview:cardview:1.0.0'
+    // implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

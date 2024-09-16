@@ -65,7 +65,7 @@ android {
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    // maven { url 'https://jitpack.io' }
     google()
 }
 
@@ -73,7 +73,7 @@ repositories {
 // artifacts.add("default", file('DeviceAPI_ver20231208_release.aar'))
 
 dependencies {
-    implementation "com.facebook.react:react-native:0.75.3"
+    implementation 'com.facebook.react:react-native:+'
     // implementation fileTree(dir: 'libs', include: ['*.*'])
     // implementation files('libs/jxl.jar')
     // implementation files('libs2/DeviceAPI_ver20231208_release.aar')

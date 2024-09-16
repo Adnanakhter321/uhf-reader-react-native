@@ -15,8 +15,6 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: "maven-publish"
-apply plugin: "com.facebook.react"
-
 
 if (isNewArchitectureEnabled()) {
     apply plugin: "com.facebook.react"
@@ -67,18 +65,15 @@ android {
 
 repositories {
     mavenCentral()
-    // maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io' }
     google()
 }
 
-// configurations.maybeCreate("default")
-// artifacts.add("default", file('DeviceAPI_ver20231208_release.aar'))
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
-    // implementation fileTree(dir: 'libs', include: ['*.*'])
-    // implementation files('libs/jxl.jar')
-    // implementation files('libs2/DeviceAPI_ver20231208_release.aar')
+    implementation "com.facebook.react:react-native:+"
+    implementation fileTree(dir: 'libs', include: ['*.*'])
+    implementation files('libs/jxl.jar')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'

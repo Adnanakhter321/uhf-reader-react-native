@@ -209,20 +209,20 @@ public class C72RfidScannerModule extends ReactContextBaseJavaModule implements 
 
     @ReactMethod
     public void readSingleTag(final Promise promise) {
-        try {
-            UHFTAGInfo tag = mReader.inventorySingleTag();
+    try {
+        UHFTAGInfo tag = mReader.inventorySingleTag();
 
-            if(!tag.getEPC().isEmpty()) {
-                String[] tagData = {tag.getEPC(), tag.getRssi()};
-                promise.resolve(convertArrayToWritableArray(tagData));
-               
-            } else {
-                promise.reject(UHF_READER_READ_ERROR, "READ FAILED");
-            }
-
-        } catch (Exception ex) {
-            promise.reject(UHF_READER_READ_ERROR, ex);
+        if (tag != null && tag.getEPC() != null && !tag.getEPC().isEmpty()) {
+            String[] tagData = {tag.getEPC(), tag.getRssi()};
+            promise.resolve(convertArrayToWritableArray(tagData));
+        } else {
+            // Send static error message if no tag found
+            promise.reject(UHF_READER_READ_ERROR, "No tags found nearby.");
         }
+
+    } catch (Exception ex) {
+        promise.reject(UHF_READER_READ_ERROR, ex);
+    }
     }
 
     @ReactMethod

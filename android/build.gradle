@@ -18,7 +18,7 @@ android {
     compileSdk 35
 
     defaultConfig {
-        minSdkVersion 23   // RN's own New Architecture runtime requires 23+; raise if your
+        minSdkVersion 21   // RN's own New Architecture runtime requires 23+; raise if your
                             // app's minSdkVersion is already higher.
         targetSdkVersion 35
     }

@@ -1,50 +1,26 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:8.0.0"
-    }
-}
-
-def isNewArchitectureEnabled() {
-    return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
-}
+// NOTE: no top-level `buildscript { classpath "com.android.tools.build:gradle:..." }`
+// block here anymore. A library module that gets autolinked into a host app
+// must NOT declare its own AGP classpath — it inherits AGP/Gradle from the
+// host app's root build.gradle. Keeping a hardcoded "8.0.0" here is what was
+// causing version-conflict / "buildscript already configured" failures once
+// this got pulled into an app on a newer AGP.
 
 apply plugin: "com.android.library"
-apply plugin: "maven-publish"
-
-if (isNewArchitectureEnabled()) {
-    apply plugin: "com.facebook.react"
-}
-
-def supportsNamespace() {
-    def parsed = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')
-    def major = parsed[0].toInteger()
-    def minor = parsed[1].toInteger()
-
-    // Namespace support was added in AGP 7.3.0
-    return (major == 7 && minor >= 3) || major >= 8
-}
+apply plugin: "com.facebook.react"   // always applied now — needed for autolinking +
+                                      // the Interop Layer to register this legacy-style
+                                      // module correctly on New Architecture builds.
+                                      // (newArchEnabled flag no longer exists to gate this on.)
 
 android {
-    if (supportsNamespace()) {
-        namespace "com.uhfrfidlibrary.uhf"
+    namespace "com.uhfrfidlibrary.uhf"   // unconditional — AGP 8+ requires this,
+                                          // no more supportsNamespace()/AndroidManifestNew.xml hack.
 
-        sourceSets {
-            main {
-                manifest.srcFile "src/main/AndroidManifestNew.xml"
-            }
-        }
-    }
-
-    compileSdkVersion 34
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion 21 // Ensure this matches the minimum requirement
-        targetSdkVersion 34 // Latest target SDK
+        minSdkVersion 23   // RN's own New Architecture runtime requires 23+; raise if your
+                            // app's minSdkVersion is already higher.
+        targetSdkVersion 35
     }
 
     buildTypes {
@@ -69,13 +45,12 @@ repositories {
     google()
 }
 
-
 dependencies {
-    implementation "com.facebook.react:react-native:+"
-    implementation fileTree(dir: 'libs', include: ['*.*'])
-    implementation files('libs/jxl.jar')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "com.facebook.react:react-android"   // new coordinate; "com.facebook.react:react-native:+"
+                                                          // is the old artifact name and is no longer
+                                                          // published for recent RN versions.
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }

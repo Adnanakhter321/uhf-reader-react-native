@@ -1,13 +1,40 @@
 {
   "name": "uhf-reader-react-native",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "private": false,
+  "description": "C72 Chainway UHF Reader for React Native — works on both the Old (bridge) and New (Fabric/TurboModules via Interop Layer) architectures",
+  "main": "index.ts",
+  "types": "index.ts",
+  "source": "index.ts",
+  "files": [
+    "index.ts",
+    "android",
+    "react-native.config.js",
+    "README.md"
+  ],
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
+  },
+  "keywords": [
+    "rfid",
+    "scanner",
+    "c72-scanner-react-native",
+    "uhf-scanner",
+    "chainway"
+  ],
+  "author": "Adnan",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adnanakhter321/uhf-reader-react-native"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -28,19 +55,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "description": "C72 Chainway UHF Reader By Adnan React Native",
-  "main": "index.ts",
-  "keywords": [
-    "rfid",
-    "scanner",
-    "c72-scanner-react-native",
-    "uhf-scanner"
-  ],
-  "author": "Adnan",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Adnanakhter321/uhf-reader-react-native"
   }
 }

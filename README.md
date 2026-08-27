@@ -9,11 +9,15 @@ If you like my work, feel free to support me by buying me a coffee!
 
 # uhf-reader-react-native by Adnan
 
+Works on both React Native's **Old Architecture** and **New Architecture**
+(Fabric/TurboModules) — the native module is plain `NativeModules`-based, and
+gets bridged onto the New Architecture automatically via RN's built-in
+Interop Layer. No separate build, no `newArchEnabled` flag handling needed on
+your end.
+
 ## Getting Started
 
 ### Installation
-
-To get started with the `uhf-reader-react-native` package, follow these steps:
 
 1. **Install the package using npm:**
 
@@ -21,11 +25,17 @@ To get started with the `uhf-reader-react-native` package, follow these steps:
     $ npm install uhf-reader-react-native --save
     ```
 
-2. **Link the package to your React Native project:**
+2. **That's it — no manual linking step.** Autolinking picks up the Android
+   module automatically (via `react-native.config.js` bundled with this
+   package). Just rebuild your Android app:
 
     ```bash
-    $ react-native link uhf-reader-react-native
+    $ cd android && ./gradlew clean && cd ..
+    $ npx react-native run-android
     ```
+
+   (The old `react-native link` command is deprecated and not needed — RN's
+   autolinking has handled this since 0.60.)
 
 ### Android Configuration
 
@@ -83,7 +93,6 @@ Here's how you can use the `uhf-reader-react-native` package in your React Nativ
         const [powerState, setPowerState] = React.useState('');
         const [tags, setTags] = React.useState([]);
         const [power, setPower] = React.useState(0);
-        const eventEmitter = new NativeEventEmitter(C72RfidScanner);
 
         const showAlert = (title, data) => {
             Alert.alert(
@@ -106,17 +115,10 @@ Here's how you can use the `uhf-reader-react-native` package in your React Nativ
         React.useEffect(() => {
             (async () => {
                 try {
-                    const scanner = C72RfidScanner;
-                    const result = await scanner.initializeUHF();
+                    const result = await C72RfidScanner.initializeUHF();
                     setPowerState(result);
-                    scanner.tagListener(tagListener);
-                    scanner.powerListener(powerListener);
-                    const subscription = eventEmitter.addListener('onHardwareKeyPress', () => {
-                        scanSingleTag();
-                    });
-                    return () => {
-                        subscription.remove();
-                    };
+                    C72RfidScanner.tagListener(tagListener);
+                    C72RfidScanner.powerListener(powerListener);
                 } catch (error) {
                     Alert.alert(error?.message);
                 }
@@ -176,7 +178,7 @@ Here's how you can use the `uhf-reader-react-native` package in your React Nativ
                             style={{ margin: 10 }}
                             onPress={async () => {
                                 try {
-                                    const result = await C72RfidScanner.changePower(power);
+                                    await C72RfidScanner.changePower(power);
                                     alert('Success');
                                 } catch (error) {
                                     alert(error.message);

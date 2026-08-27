@@ -2,3 +2,4 @@
 /android/build
 /.gradle
 /.idea
+android/local.properties
